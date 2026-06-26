@@ -1,16 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import ImageWithFallback from './ImageWithFallback';
+import Typewriter from './Typewriter';
 
 interface HeroSectionProps {
+  targetName: string;
+  proposalMessage: string;
+  vibe: string;
+  proposalDate?: string;
   onYes: () => void;
+  onBackToSetup?: () => void;
 }
 
-export default function HeroSection({ onYes }: HeroSectionProps) {
+export default function HeroSection({
+  targetName,
+  proposalMessage,
+  vibe,
+  proposalDate,
+  onYes,
+  onBackToSetup,
+}: HeroSectionProps) {
   const [noCount, setNoCount] = useState(0);
   const [noPosition, setNoPosition] = useState<{ x: number; y: number } | null>(null);
+  const [timeLeft, setTimeLeft] = useState<{
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    isPast: boolean;
+  } | null>(null);
 
-  const titleLetters = Array.from("Sayli Gayke ❤️");
+  useEffect(() => {
+    if (!proposalDate) {
+      setTimeLeft(null);
+      return;
+    }
+
+    const calculateTimeLeft = () => {
+      const targetTime = new Date(proposalDate).getTime();
+      const now = new Date().getTime();
+      const difference = targetTime - now;
+
+      if (isNaN(targetTime)) {
+        setTimeLeft(null);
+        return;
+      }
+
+      if (difference <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0, isPast: true });
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds, isPast: false });
+    };
+
+    calculateTimeLeft();
+    const interval = setInterval(calculateTimeLeft, 1000);
+
+    return () => clearInterval(interval);
+  }, [proposalDate]);
+
+  const titleLetters = Array.from(targetName ? `${targetName} ❤️` : "Beautiful ❤️");
 
   // Runaway button mechanism
   const teleportNoButton = (e: React.MouseEvent | React.TouchEvent) => {
@@ -142,89 +197,142 @@ export default function HeroSection({ onYes }: HeroSectionProps) {
           "In a world full of temporary things, you are my forever."
         </p>
 
-        {/* Typing reveal text question */}
-        <div className="h-8 mt-2 max-w-xs mx-auto flex items-center justify-center">
-          <motion.h2
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: [0.6, 1, 0.6], scale: 1 }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="text-xl sm:text-2xl font-medium text-gray-700 tracking-wide"
-          >
-            Will you forever be mine?
-          </motion.h2>
+        {/* Typing reveal text question with intimate typewriter animation */}
+        <div className="min-h-[2.5rem] mt-2 max-w-md mx-auto flex items-center justify-center">
+          <Typewriter
+            text={proposalMessage}
+            className="text-xl sm:text-2xl font-medium text-gray-750 tracking-wide font-serif text-center"
+            speed={75}
+            delay={800}
+          />
         </div>
       </div>
 
       {/* Interactive Choice Center */}
       <div className="w-full min-h-[120px] flex flex-col items-center justify-center relative">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative w-full">
-          
-          {/* YES PULSE HEARTBEAT BUTTON */}
-          <motion.button
-            onClick={onYes}
-            style={{ scale: yesScale }}
-            animate={{
-              boxShadow: [
-                "0 0 0 0 rgba(244, 63, 94, 0.4)",
-                "0 0 0 16px rgba(244, 63, 94, 0)",
-              ]
-            }}
-            transition={{
-              boxShadow: {
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeOut"
-              }
-            }}
-            whileHover={{ scale: yesScale * 1.08 }}
-            whileTap={{ scale: yesScale * 0.95 }}
-            className="bg-rose-500 hover:bg-rose-600 text-white font-display font-medium text-xl py-4.5 px-12 rounded-full shadow-[0_10px_30px_rgba(244,63,94,0.4)] transition-all z-20 flex items-center justify-center gap-2.5 cursor-pointer whitespace-nowrap"
+        {timeLeft && !timeLeft.isPast ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full flex flex-col items-center justify-center space-y-6 p-6 bg-white/40 backdrop-blur-md rounded-3xl border border-white/50 shadow-sm"
           >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 24 24" 
-              fill="currentColor" 
-              className="w-6 h-6 text-white animate-pulse"
-            >
-              <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-            </svg>
-            Yes ❤️
-          </motion.button>
+            <div className="text-center space-y-1">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-pink-600 font-semibold">
+                ⏳ Beautiful Anticipation
+              </span>
+              <p className="text-sm text-gray-600 font-medium font-serif mt-1">
+                Our romantic journey scheduled to reveal in:
+              </p>
+            </div>
 
-          {/* RUNAWAY "NO" BUTTON */}
-          <AnimatePresence>
-            {noCount < 10 ? (
-              <motion.button
-                key="runaway-no"
-                onMouseEnter={teleportNoButton}
-                onTouchStart={teleportNoButton}
-                style={
-                  noPosition
-                    ? {
-                        position: 'fixed',
-                        left: noPosition.x,
-                        top: noPosition.y,
-                        scale: noScale,
-                        zIndex: 50,
-                      }
-                    : { scale: noScale }
+            {/* Elegant 4-Column Time Grid */}
+            <div className="grid grid-cols-4 gap-3 sm:gap-4 w-full max-w-sm">
+              {[
+                { label: 'Days', value: timeLeft.days },
+                { label: 'Hours', value: timeLeft.hours },
+                { label: 'Minutes', value: timeLeft.minutes },
+                { label: 'Seconds', value: timeLeft.seconds },
+              ].map((unit, i) => (
+                <div 
+                  key={i} 
+                  className="flex flex-col items-center justify-center bg-white/60 backdrop-blur-xs rounded-2xl p-2.5 sm:p-4 border border-rose-100 shadow-xs relative overflow-hidden group hover:scale-[1.03] transition-all"
+                >
+                  <span className="text-2xl sm:text-3xl font-bold text-rose-500 font-mono tracking-tight group-hover:text-rose-600 transition-colors">
+                    {String(unit.value).padStart(2, '0')}
+                  </span>
+                  <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest mt-1">
+                    {unit.label}
+                  </span>
+                  {/* Glowing decorative effect */}
+                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-200 rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-500"></span>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center space-y-2 pt-1">
+              <p className="text-[11px] font-mono text-purple-700/60 uppercase tracking-widest">
+                Scheduled for: {new Date(proposalDate!).toLocaleString()}
+              </p>
+              
+              {/* Optional test preview bypass to check buttons/animations */}
+              <button
+                onClick={onYes}
+                className="text-[11px] font-sans text-rose-500 hover:text-rose-600 hover:underline transition-all cursor-pointer font-semibold flex items-center justify-center gap-1.5 mx-auto"
+              >
+                <span>✨ Preview Proposal Instantly</span>
+              </button>
+            </div>
+          </motion.div>
+        ) : (
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative w-full">
+            
+            {/* YES PULSE HEARTBEAT BUTTON */}
+            <motion.button
+              onClick={onYes}
+              style={{ scale: yesScale }}
+              animate={{
+                boxShadow: [
+                  "0 0 0 0 rgba(244, 63, 94, 0.4)",
+                  "0 0 0 16px rgba(244, 63, 94, 0)",
+                ]
+              }}
+              transition={{
+                boxShadow: {
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeOut"
                 }
-                whileHover={{ scale: noScale * 0.95 }}
-                className="bg-white/50 hover:bg-white/80 backdrop-blur-md text-gray-500 border border-white/40 rounded-full font-display font-medium text-xs py-2.5 px-6 shadow-xs transition-all cursor-pointer whitespace-nowrap"
+              }}
+              whileHover={{ scale: yesScale * 1.08 }}
+              whileTap={{ scale: yesScale * 0.95 }}
+              className="bg-rose-500 hover:bg-rose-600 text-white font-display font-medium text-xl py-4.5 px-12 rounded-full shadow-[0_10px_30px_rgba(244,63,94,0.4)] transition-all z-20 flex items-center justify-center gap-2.5 cursor-pointer whitespace-nowrap"
+            >
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" 
+                fill="currentColor" 
+                className="w-6 h-6 text-white animate-pulse"
               >
-                No... 😢
-              </motion.button>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 0.5, scale: 0.8 }}
-                className="text-xs font-semibold text-rose-500 bg-white/45 border border-white/50 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 cursor-not-allowed select-none italic"
-              >
-                <span>No options left 🔒</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+              </svg>
+              Yes ❤️
+            </motion.button>
+
+            {/* RUNAWAY "NO" BUTTON */}
+            <AnimatePresence>
+              {noCount < 10 ? (
+                <motion.button
+                  key="runaway-no"
+                  onMouseEnter={teleportNoButton}
+                  onTouchStart={teleportNoButton}
+                  style={
+                    noPosition
+                      ? {
+                          position: 'fixed',
+                          left: noPosition.x,
+                          top: noPosition.y,
+                          scale: noScale,
+                          zIndex: 50,
+                        }
+                      : { scale: noScale }
+                  }
+                  whileHover={{ scale: noScale * 0.95 }}
+                  className="bg-white/50 hover:bg-white/80 backdrop-blur-md text-gray-500 border border-white/40 rounded-full font-display font-medium text-xs py-2.5 px-6 shadow-xs transition-all cursor-pointer whitespace-nowrap"
+                >
+                  No... 😢
+                </motion.button>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 0.5, scale: 0.8 }}
+                  className="text-xs font-semibold text-rose-500 bg-white/45 border border-white/50 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 cursor-not-allowed select-none italic"
+                >
+                  <span>No options left 🔒</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
       </div>
 
       {/* Underline Helper Hint Card */}
@@ -246,6 +354,15 @@ export default function HeroSection({ onYes }: HeroSectionProps) {
         >
           The 'No' button is retreating... Please say Yes! 🌸
         </motion.p>
+      )}
+
+      {onBackToSetup && (
+        <button
+          onClick={onBackToSetup}
+          className="mt-6 text-[10px] font-mono text-gray-400 hover:text-rose-500 tracking-widest transition-colors uppercase cursor-pointer"
+        >
+          ← Edit Configuration
+        </button>
       )}
     </div>
   );

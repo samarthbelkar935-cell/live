@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import BackgroundParticles from './components/BackgroundParticles';
 import HeroSection from './components/HeroSection';
 import SuccessSection from './components/SuccessSection';
+import NameSetupSection from './components/NameSetupSection';
 
 interface BurstHeart {
   id: number;
@@ -15,8 +16,28 @@ interface BurstHeart {
 }
 
 export default function App() {
-  const [isAccepted, setIsAccepted] = useState(false);
+  const [step, setStep] = useState<'setup' | 'proposal' | 'success'>('setup');
+  const [targetName, setTargetName] = useState('');
+  const [proposalMessage, setProposalMessage] = useState('Will you forever be mine? ❤️');
+  const [vibe, setVibe] = useState('romantic');
+  const [authorName, setAuthorName] = useState('');
+  const [proposalDate, setProposalDate] = useState<string | undefined>(undefined);
   const [burstHearts, setBurstHearts] = useState<BurstHeart[]>([]);
+
+  const handleSetupComplete = (config: {
+    targetName: string;
+    proposalMessage: string;
+    vibe: string;
+    authorName: string;
+    proposalDate?: string;
+  }) => {
+    setTargetName(config.targetName);
+    setProposalMessage(config.proposalMessage);
+    setVibe(config.vibe);
+    setAuthorName(config.authorName);
+    setProposalDate(config.proposalDate);
+    setStep('proposal');
+  };
 
   // Simple, elegant heart explosion generator
   const triggerHeartExplosion = () => {
@@ -46,7 +67,7 @@ export default function App() {
     });
 
     setBurstHearts(list);
-    setIsAccepted(true);
+    setStep('success');
 
     // Fade out explosion particles after completion
     setTimeout(() => {
@@ -55,23 +76,48 @@ export default function App() {
   };
 
   const handleReset = () => {
-    setIsAccepted(false);
+    setStep('setup');
     setBurstHearts([]);
   };
 
+  const getBackgroundClass = () => {
+    if (step === 'setup') {
+      return "from-rose-100 via-purple-100 to-pink-200";
+    }
+    switch (vibe) {
+      case 'romantic':
+        return "from-rose-100 via-pink-50 to-red-100";
+      case 'playful':
+        return "from-sky-100 via-pink-100 to-purple-100";
+      case 'cinematic':
+        return "from-slate-900 via-purple-950 to-indigo-950 text-white selection:bg-purple-800 selection:text-purple-100";
+      case 'royal':
+        return "from-stone-100 via-amber-50 to-orange-50";
+      default:
+        return "from-rose-100 via-purple-100 to-pink-200";
+    }
+  };
+
   return (
-    <main className="relative min-h-screen w-full bg-gradient-to-tr from-rose-100 via-purple-100 to-pink-200 overflow-y-auto overflow-x-hidden selection:bg-pink-200 selection:text-pink-800">
+    <main className={`relative min-h-screen w-full bg-gradient-to-tr transition-colors duration-1000 ${getBackgroundClass()} overflow-y-auto overflow-x-hidden selection:bg-pink-200 selection:text-pink-800`}>
       
       {/* Dynamic ambient floating sparkles and bubbles backdrop */}
       <BackgroundParticles />
 
       {/* Screen Transitions */}
       <AnimatePresence mode="wait">
-        {!isAccepted ? (
+        {step === 'setup' && (
+          <div className="w-full flex flex-col items-center justify-center min-h-screen relative pb-16">
+            <NameSetupSection onSetupComplete={handleSetupComplete} />
+          </div>
+        )}
+
+        {step === 'proposal' && (
           <div className="w-full flex flex-col items-center justify-center min-h-screen relative pb-32">
             <motion.section
               key="propose-hero"
-              initial={{ opacity: 1 }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
               exit={{ 
                 opacity: 0, 
                 scale: 0.95,
@@ -80,17 +126,26 @@ export default function App() {
               }}
               className="w-full flex items-center justify-center"
             >
-              <HeroSection onYes={triggerHeartExplosion} />
+              <HeroSection 
+                targetName={targetName}
+                proposalMessage={proposalMessage}
+                vibe={vibe}
+                proposalDate={proposalDate}
+                onYes={triggerHeartExplosion}
+                onBackToSetup={() => setStep('setup')}
+              />
             </motion.section>
 
             {/* Immersive UI Absolute Footer Layout */}
             <footer className="absolute bottom-6 left-0 w-full flex flex-col items-center opacity-80 pointer-events-none select-none z-10">
               <div className="h-px w-40 bg-gradient-to-r from-transparent via-rose-300 to-transparent mb-4"></div>
-              <p className="text-xs tracking-[0.25em] font-light text-purple-800/60 uppercase">With all my heart</p>
-              <p className="text-2xl font-serif italic text-rose-600 mt-1">Samarth</p>
+              <p className="text-xs tracking-[0.25em] font-light uppercase">With all my heart</p>
+              <p className="text-2xl font-serif italic text-rose-600 mt-1">{authorName}</p>
             </footer>
           </div>
-        ) : (
+        )}
+
+        {step === 'success' && (
           <motion.section
             key="propose-success"
             initial={{ opacity: 0, scale: 1.05, y: 30 }}
@@ -103,7 +158,13 @@ export default function App() {
             exit={{ opacity: 0 }}
             className="w-full"
           >
-            <SuccessSection onBack={handleReset} />
+            <SuccessSection 
+              targetName={targetName}
+              proposalMessage={proposalMessage}
+              authorName={authorName}
+              vibe={vibe}
+              onBack={handleReset} 
+            />
           </motion.section>
         )}
       </AnimatePresence>

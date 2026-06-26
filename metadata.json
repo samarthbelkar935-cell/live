@@ -1,6 +1,6 @@
 {
-  "name": "Sayli Proposal",
-  "description": "A premium, ultra-modern single-page romantic proposal page for Sayli Gayke by Samarth.",
+  "name": "Proposal",
+  "description": "A premium, ultra-modern single-page romantic proposal creator and page.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

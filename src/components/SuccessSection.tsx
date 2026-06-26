@@ -4,15 +4,25 @@ import ImageWithFallback from './ImageWithFallback';
 import LoveStoryTimeline from './LoveStoryTimeline';
 
 interface SuccessSectionProps {
+  targetName: string;
+  proposalMessage: string;
+  authorName: string;
+  vibe: string;
   onBack?: () => void;
 }
 
-export default function SuccessSection({ onBack }: SuccessSectionProps) {
+export default function SuccessSection({
+  targetName,
+  proposalMessage,
+  authorName,
+  vibe,
+  onBack,
+}: SuccessSectionProps) {
   const romanticPromises = [
-    "In a world full of temporary things, you are my forever, Sayli. ❤️",
+    `In a world full of temporary things, you are my forever, ${targetName}. ❤️`,
     "Meeting you was fate, but falling in love with you was beyond my control.",
     "Your laugh is my favorite soundtrack, and your happiness is my ultimate goal.",
-    "Together is my favorite place to be. Will you make it permanent?",
+    `Together is my favorite place to be. Will you make it permanent, ${targetName}?`,
     "Every heartbeat of mine echoes your name. Every dream of mine is colored with your smile."
   ];
 
@@ -86,12 +96,12 @@ export default function SuccessSection({ onBack }: SuccessSectionProps) {
           <div className="w-full aspect-[4/5] rounded-xs bg-gray-50 overflow-hidden border border-gray-200/50 mt-4">
             <ImageWithFallback 
               src="./photo1.jpg" 
-              alt="Sayli Gayke Polaroid 1" 
+              alt={`${targetName} Polaroid 1`} 
               fallbackType="photo1" 
             />
           </div>
           <div className="mt-4 text-center">
-            <p className="font-script text-3xl text-rose-500 font-bold leading-none">Sayli Gayke</p>
+            <p className="font-script text-3xl text-rose-500 font-bold leading-none">{targetName}</p>
             <p className="font-mono text-[9px] uppercase tracking-widest text-gray-400 mt-1">My shining star</p>
           </div>
         </motion.div>
@@ -110,7 +120,7 @@ export default function SuccessSection({ onBack }: SuccessSectionProps) {
           <div className="w-full aspect-[4/5] rounded-xs bg-gray-50 overflow-hidden border border-gray-200/50 mt-4">
             <ImageWithFallback 
               src="./photo2.jpg" 
-              alt="Sayli Gayke Polaroid 2" 
+              alt={`${targetName} Polaroid 2`} 
               fallbackType="photo2" 
             />
           </div>
@@ -204,7 +214,7 @@ export default function SuccessSection({ onBack }: SuccessSectionProps) {
             transition={{ delay: 1 }}
             className="font-script text-5xl md:text-6xl text-rose-600 font-bold hover:scale-105 active:scale-95 transition-transform duration-300 select-none cursor-default py-2"
           >
-            Samarth
+            {authorName}
           </motion.p>
           <div className="w-10 h-0.5 bg-rose-400 mt-2 opacity-50" />
         </div>
