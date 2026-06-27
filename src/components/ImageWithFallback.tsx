@@ -5,6 +5,7 @@ interface ImageWithFallbackProps {
   src: string;
   alt: string;
   fallbackType: 'stitch' | 'photo1' | 'photo2';
+  targetName?: string;
   className?: string;
 }
 
@@ -12,6 +13,7 @@ export default function ImageWithFallback({
   src,
   alt,
   fallbackType,
+  targetName,
   className = '',
 }: ImageWithFallbackProps) {
   const [hasError, setHasError] = useState(false);
@@ -62,7 +64,7 @@ export default function ImageWithFallback({
           </motion.div>
           <p className="font-display font-semibold text-rose-600 text-lg">Ohana Means Family ❤️</p>
           <p className="text-xs text-purple-700/70 mt-1 max-w-[240px]">
-            Sayli, you make my world complete. Let's start our own beautiful story!
+            {targetName || "My Love"}, you make my world complete. Let's start our own beautiful story!
           </p>
           <div className="mt-3 px-3 py-1 bg-white/40 backdrop-blur-xs rounded-full border border-white/50 text-[10px] text-pink-600 font-medium uppercase tracking-wider animate-pulse">
             Cute Stitch Loaded in Spirit 😊
@@ -88,7 +90,7 @@ export default function ImageWithFallback({
           <p className="text-xs text-rose-700/60 mt-1 max-w-[180px]">
             Every single look at you cleanses my soul.
           </p>
-          <span className="font-script text-2xl text-purple-600 mt-4 block">Beautiful Sayli</span>
+          <span className="font-script text-2xl text-purple-600 mt-4 block">Beautiful {targetName || "My Love"}</span>
         </div>
       );
     }

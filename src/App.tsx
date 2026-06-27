@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import BackgroundParticles from './components/BackgroundParticles';
 import HeroSection from './components/HeroSection';
 import SuccessSection from './components/SuccessSection';
 import NameSetupSection from './components/NameSetupSection';
+import { playHeartBurstSound } from './utils/audio';
 
 interface BurstHeart {
   id: number;
@@ -20,9 +21,44 @@ export default function App() {
   const [targetName, setTargetName] = useState('');
   const [proposalMessage, setProposalMessage] = useState('Will you forever be mine? ❤️');
   const [vibe, setVibe] = useState('romantic');
+  const [theme, setTheme] = useState<'rose' | 'midnight' | 'gold'>('rose');
   const [authorName, setAuthorName] = useState('');
   const [proposalDate, setProposalDate] = useState<string | undefined>(undefined);
+  const [bannerImage, setBannerImage] = useState<string | undefined>(undefined);
+  const [romanticAtmosphere, setRomanticAtmosphere] = useState(true);
   const [burstHearts, setBurstHearts] = useState<BurstHeart[]>([]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const target = params.get('targetName');
+    const msg = params.get('proposalMessage');
+    const vb = params.get('vibe');
+    const author = params.get('authorName');
+    const date = params.get('proposalDate');
+    const th = params.get('theme');
+    const banner = params.get('bannerImage');
+    const atmosphere = params.get('romanticAtmosphere');
+
+    if (target) {
+      setTargetName(target);
+      if (msg) setProposalMessage(msg);
+      if (vb) setVibe(vb);
+      if (author) setAuthorName(author);
+      if (date) setProposalDate(date);
+      if (th === 'rose' || th === 'midnight' || th === 'gold') {
+        setTheme(th);
+      }
+      if (banner) {
+        setBannerImage(banner);
+      }
+      if (atmosphere === 'false') {
+        setRomanticAtmosphere(false);
+      } else {
+        setRomanticAtmosphere(true);
+      }
+      setStep('proposal');
+    }
+  }, []);
 
   const handleSetupComplete = (config: {
     targetName: string;
@@ -30,17 +66,24 @@ export default function App() {
     vibe: string;
     authorName: string;
     proposalDate?: string;
+    theme: 'rose' | 'midnight' | 'gold';
+    bannerImage?: string;
+    romanticAtmosphere: boolean;
   }) => {
     setTargetName(config.targetName);
     setProposalMessage(config.proposalMessage);
     setVibe(config.vibe);
     setAuthorName(config.authorName);
     setProposalDate(config.proposalDate);
+    setTheme(config.theme);
+    setBannerImage(config.bannerImage);
+    setRomanticAtmosphere(config.romanticAtmosphere);
     setStep('proposal');
   };
 
   // Simple, elegant heart explosion generator
   const triggerHeartExplosion = () => {
+    playHeartBurstSound();
     const list: BurstHeart[] = Array.from({ length: 45 }, (_, i) => {
       const angle = Math.random() * Math.PI * 2; // Random 360-degree direction
       const distance = Math.random() * 280 + 100; // Explode outwards
@@ -81,28 +124,23 @@ export default function App() {
   };
 
   const getBackgroundClass = () => {
-    if (step === 'setup') {
-      return "from-rose-100 via-purple-100 to-pink-200";
-    }
-    switch (vibe) {
-      case 'romantic':
-        return "from-rose-100 via-pink-50 to-red-100";
-      case 'playful':
-        return "from-sky-100 via-pink-100 to-purple-100";
-      case 'cinematic':
-        return "from-slate-900 via-purple-950 to-indigo-950 text-white selection:bg-purple-800 selection:text-purple-100";
-      case 'royal':
-        return "from-stone-100 via-amber-50 to-orange-50";
+    switch (theme) {
+      case 'midnight':
+        return "from-slate-950 via-blue-950 to-slate-900 text-white selection:bg-blue-850 selection:text-blue-100";
+      case 'rose':
+        return "from-rose-100 via-pink-50 to-rose-200 text-gray-800 selection:bg-pink-200 selection:text-pink-800";
+      case 'gold':
+        return "from-stone-50 via-amber-50/40 to-stone-100 text-amber-950 selection:bg-amber-100 selection:text-amber-900";
       default:
         return "from-rose-100 via-purple-100 to-pink-200";
     }
   };
 
   return (
-    <main className={`relative min-h-screen w-full bg-gradient-to-tr transition-colors duration-1000 ${getBackgroundClass()} overflow-y-auto overflow-x-hidden selection:bg-pink-200 selection:text-pink-800`}>
+    <main className={`relative min-h-screen w-full bg-gradient-to-tr transition-all duration-1000 ${getBackgroundClass()} overflow-y-auto overflow-x-hidden`}>
       
       {/* Dynamic ambient floating sparkles and bubbles backdrop */}
-      <BackgroundParticles />
+      <BackgroundParticles theme={theme} romanticAtmosphere={romanticAtmosphere} />
 
       {/* Screen Transitions */}
       <AnimatePresence mode="wait">
@@ -130,7 +168,9 @@ export default function App() {
                 targetName={targetName}
                 proposalMessage={proposalMessage}
                 vibe={vibe}
+                theme={theme}
                 proposalDate={proposalDate}
+                bannerImage={bannerImage}
                 onYes={triggerHeartExplosion}
                 onBackToSetup={() => setStep('setup')}
               />
@@ -163,6 +203,9 @@ export default function App() {
               proposalMessage={proposalMessage}
               authorName={authorName}
               vibe={vibe}
+              theme={theme}
+              bannerImage={bannerImage}
+              romanticAtmosphere={romanticAtmosphere}
               onBack={handleReset} 
             />
           </motion.section>
