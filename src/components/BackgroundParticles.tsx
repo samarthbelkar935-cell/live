@@ -31,12 +31,31 @@ export default function BackgroundParticles({ theme = 'rose', romanticAtmosphere
       const type = types[Math.floor(Math.random() * types.length)];
       
       let color = 'text-rose-400/60';
-      if (type === 'sparkle') {
-        color = Math.random() > 0.5 ? 'text-amber-300/60' : 'text-yellow-100/50';
-      } else if (type === 'bubble') {
-        color = 'text-purple-300/30';
+      if (theme === 'midnight') {
+        if (type === 'sparkle') {
+          color = Math.random() > 0.5 ? 'text-blue-300/60' : 'text-sky-100/50';
+        } else if (type === 'bubble') {
+          color = 'text-indigo-450/25';
+        } else {
+          color = Math.random() > 0.5 ? 'text-cyan-300/60' : 'text-indigo-400/50';
+        }
+      } else if (theme === 'gold') {
+        if (type === 'sparkle') {
+          color = Math.random() > 0.5 ? 'text-amber-300/70' : 'text-yellow-100/60';
+        } else if (type === 'bubble') {
+          color = 'text-amber-100/20';
+        } else {
+          color = Math.random() > 0.5 ? 'text-amber-400/60' : 'text-yellow-500/40';
+        }
       } else {
-        color = Math.random() > 0.5 ? 'text-pink-300/60' : 'text-rose-400/50';
+        // rose
+        if (type === 'sparkle') {
+          color = Math.random() > 0.5 ? 'text-amber-300/60' : 'text-yellow-100/50';
+        } else if (type === 'bubble') {
+          color = 'text-purple-300/30';
+        } else {
+          color = Math.random() > 0.5 ? 'text-pink-300/60' : 'text-rose-400/50';
+        }
       }
 
       return {
@@ -50,7 +69,7 @@ export default function BackgroundParticles({ theme = 'rose', romanticAtmosphere
       };
     });
     setParticles(list);
-  }, []);
+  }, [theme]);
 
   useEffect(() => {
     if (!romanticAtmosphere) {
@@ -59,7 +78,7 @@ export default function BackgroundParticles({ theme = 'rose', romanticAtmosphere
     }
 
     // Generate themed falling atmosphere particles
-    const count = 30;
+    const count = 45;
     const list: FallingParticle[] = Array.from({ length: count }, (_, i) => {
       let type: 'petal' | 'snow' | 'golddust' = 'petal';
       let color = 'text-pink-350/70';
@@ -95,13 +114,13 @@ export default function BackgroundParticles({ theme = 'rose', romanticAtmosphere
 
       return {
         id: 500 + i,
-        x: Math.random() * 100,
+        x: Math.random() * 120 - 10, // Spanned wider to cover left and right screen borders
         size: theme === 'midnight' ? Math.random() * 8 + 6 : Math.random() * 16 + 10,
         delay: Math.random() * 12,
-        duration: Math.random() * 10 + 10, // speed of descent
+        duration: Math.random() * 12 + 10, // speed of descent
         color,
         type,
-        sway: Math.random() * 12 + 6, // swing width
+        sway: (Math.random() * 14 + 7) * (Math.random() > 0.5 ? 1 : -1), // Randomized sign so sway goes both left and right
         rotationStart: Math.random() * 360,
         rotationEnd: Math.random() * 360 + 360 * (Math.random() > 0.5 ? 1 : -1),
       };
@@ -111,7 +130,7 @@ export default function BackgroundParticles({ theme = 'rose', romanticAtmosphere
   }, [theme, romanticAtmosphere]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       {/* Soft animated gradient blobs in background for deep backdrop dimension - matching Immersive UI spec */}
       <div className="absolute top-[-10%] left-[-10%] w-[400px] h-[400px] bg-rose-300/30 rounded-full blur-[100px] animate-pulse" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-300/30 rounded-full blur-[120px]" />

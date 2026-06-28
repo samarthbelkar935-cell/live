@@ -34,6 +34,52 @@ export default function SuccessSection({
   ];
 
   const isDark = theme === 'midnight';
+  
+  // Dynamic design variables for Success Section
+  let cardClass = "bg-white/30 border-white/45 shadow-xl mb-16";
+  let cardBorderColor = "border-white/40";
+  let pillClass = "bg-rose-100 text-rose-600 border-rose-200";
+  let titleColor = "text-gray-900";
+  let subtitleColor = "text-purple-700/90";
+  let labelColor = "text-gray-800";
+  let paragraphColor = "text-gray-600";
+  let subBorderColor = "border-white/20";
+  let listTagColor = "text-purple-700/60";
+  let navBtnColor = "bg-white/80 hover:bg-white text-rose-500";
+  let shareBtnColor = "bg-white/70 hover:bg-white border-rose-100 text-gray-700 hover:text-rose-600";
+  let lineBreakColor = "bg-rose-100/40";
+  let contentTextTheme = "text-gray-800";
+
+  if (theme === 'midnight') {
+    cardClass = "bg-slate-900/40 border-blue-900/40 shadow-xl mb-16";
+    cardBorderColor = "border-blue-900/40";
+    pillClass = "bg-rose-950/40 text-rose-300 border-rose-900/30";
+    titleColor = "text-white";
+    subtitleColor = "text-purple-300/90";
+    labelColor = "text-white";
+    paragraphColor = "text-gray-300";
+    subBorderColor = "border-blue-900/30";
+    listTagColor = "text-blue-300/80";
+    navBtnColor = "bg-slate-950/85 hover:bg-slate-900 text-rose-400";
+    shareBtnColor = "bg-slate-950/70 hover:bg-slate-950/90 border-blue-950/50 text-blue-200 hover:text-rose-400";
+    lineBreakColor = "bg-slate-800";
+    contentTextTheme = "text-gray-200";
+  } else if (theme === 'gold') {
+    cardClass = "bg-amber-50/65 border-amber-200/50 shadow-xl mb-16";
+    cardBorderColor = "border-amber-200/50";
+    pillClass = "bg-amber-100 text-amber-800 border-amber-250";
+    titleColor = "text-amber-950";
+    subtitleColor = "text-amber-800/90";
+    labelColor = "text-amber-900";
+    paragraphColor = "text-amber-900/80";
+    subBorderColor = "border-amber-200/30";
+    listTagColor = "text-amber-700/80";
+    navBtnColor = "bg-white/90 hover:bg-amber-100 text-amber-700 border border-amber-100";
+    shareBtnColor = "bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-800 hover:text-amber-950";
+    lineBreakColor = "bg-amber-200/40";
+    contentTextTheme = "text-amber-950";
+  }
+
   const [activeLetterIdx, setActiveLetterIdx] = useState(0);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [isMessageCopied, setIsMessageCopied] = useState(false);
@@ -108,18 +154,18 @@ export default function SuccessSection({
 
       {/* Main Congratulations Header */}
       <motion.div variants={itemVariants} className="text-center max-w-2xl mt-6">
-        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4 border shadow-xs ${isDark ? 'bg-rose-950/40 text-rose-300 border-rose-900/30' : 'bg-rose-100 text-rose-600 border-rose-200'}`}>
+        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4 border shadow-xs ${pillClass}`}>
           <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
           </svg>
           Destiny Connected
         </div>
         
-        <h1 className={`font-serif text-4xl md:text-5xl leading-tight ${isDark ? 'text-white' : 'text-gray-900'}`}>
+        <h1 className={`font-serif text-4xl md:text-5xl leading-tight ${titleColor}`}>
           Yay ❤️ This moment is special
         </h1>
         
-        <p className={`font-serif italic text-base md:text-lg mt-5 leading-relaxed max-w-lg mx-auto ${isDark ? 'text-purple-300/90' : 'text-purple-700/90'}`}>
+        <p className={`font-serif italic text-base md:text-lg mt-5 leading-relaxed max-w-lg mx-auto ${subtitleColor}`}>
           "In all the universe, my heart has chosen your rhythm. Let's write our forever, starting right now."
         </p>
       </motion.div>
@@ -181,12 +227,12 @@ export default function SuccessSection({
       </motion.div>
 
       {/* Love Letters Epistle Stack */}
-      <motion.div variants={itemVariants} className={`w-full max-w-md backdrop-blur-md rounded-2xl border p-6 shadow-xl mb-16 ${isDark ? 'bg-slate-900/40 border-blue-900/40' : 'bg-white/30 border-white/45'}`}>
-        <div className={`flex items-center gap-2 border-b pb-3 mb-4 ${isDark ? 'border-blue-900/40' : 'border-white/40'}`}>
+      <motion.div variants={itemVariants} className={`w-full max-w-md backdrop-blur-md rounded-2xl border p-6 shadow-xl mb-16 ${cardClass}`}>
+        <div className={`flex items-center gap-2 border-b pb-3 mb-4 ${cardBorderColor}`}>
           <svg className="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 19v-8.93a2 2 0 01.89-1.664l8-5.333a2 2 0 012.22 0l8 5.333A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76" />
           </svg>
-          <h3 className={`font-display font-semibold text-sm tracking-wide ${isDark ? 'text-white' : 'text-gray-800'}`}>Interactive Love Letters</h3>
+          <h3 className={`font-display font-semibold text-sm tracking-wide ${labelColor}`}>Interactive Love Letters</h3>
         </div>
 
         <div className="relative min-h-[140px] flex items-center justify-center">
@@ -199,7 +245,7 @@ export default function SuccessSection({
               transition={{ duration: 0.3 }}
               className="text-center py-2 px-4"
             >
-              <p className={`font-serif italic text-base leading-relaxed ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
+              <p className={`font-serif italic text-base leading-relaxed ${contentTextTheme}`}>
                 "{romanticPromises[activeLetterIdx]}"
               </p>
             </motion.div>
@@ -207,14 +253,14 @@ export default function SuccessSection({
         </div>
 
         {/* Swipe / Next letter paginators */}
-        <div className={`flex items-center justify-between mt-6 pt-3 border-t ${isDark ? 'border-blue-900/30' : 'border-white/20'}`}>
-          <span className={`text-xs font-mono font-medium ${isDark ? 'text-blue-300/80' : 'text-purple-700/60'}`}>
+        <div className={`flex items-center justify-between mt-6 pt-3 border-t ${subBorderColor}`}>
+          <span className={`text-xs font-mono font-medium ${listTagColor}`}>
             Letter {activeLetterIdx + 1} of {romanticPromises.length}
           </span>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveLetterIdx((prev) => (prev > 0 ? prev - 1 : romanticPromises.length - 1))}
-              className={`w-8 h-8 rounded-full font-semibold text-sm flex items-center justify-center transition-colors shadow-sm cursor-pointer ${isDark ? 'bg-slate-950/85 hover:bg-slate-900 text-rose-400' : 'bg-white/80 hover:bg-white text-rose-500'}`}
+              className={`w-8 h-8 rounded-full font-semibold text-sm flex items-center justify-center transition-colors shadow-sm cursor-pointer ${navBtnColor}`}
               title="Previous letter"
             >
               ←
@@ -232,14 +278,14 @@ export default function SuccessSection({
       {/* Share Section */}
       <motion.div 
         variants={itemVariants} 
-        className={`w-full max-w-md backdrop-blur-md rounded-2xl border p-6 shadow-xl mb-16 text-center ${isDark ? 'bg-slate-900/40 border-blue-900/40' : 'bg-white/30 border-white/45'}`}
+        className={`w-full max-w-md backdrop-blur-md rounded-2xl border p-6 shadow-xl mb-16 text-center ${cardClass}`}
       >
-        <div className={`flex items-center justify-center gap-2 border-b pb-3 mb-4 ${isDark ? 'border-blue-900/40' : 'border-white/40'}`}>
+        <div className={`flex items-center justify-center gap-2 border-b pb-3 mb-4 ${cardBorderColor}`}>
           <Share2 className="w-5 h-5 text-rose-500" />
-          <h3 className={`font-display font-semibold text-sm tracking-wide ${isDark ? 'text-white' : 'text-gray-800'}`}>Share Your Proposal Moment</h3>
+          <h3 className={`font-display font-semibold text-sm tracking-wide ${labelColor}`}>Share Your Proposal Moment</h3>
         </div>
 
-        <p className={`text-xs leading-relaxed mb-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+        <p className={`text-xs leading-relaxed mb-4 ${paragraphColor}`}>
           Invite friends and family to witness your beautiful milestone! Copy your customized proposal link or a lovely message to share on social media.
         </p>
 
@@ -247,7 +293,7 @@ export default function SuccessSection({
           {/* Link Copy Button */}
           <button
             onClick={handleCopyLink}
-            className={`flex items-center justify-between px-4 py-3 rounded-xl border transition-all text-xs font-medium cursor-pointer shadow-xs group ${isDark ? 'bg-slate-950/70 hover:bg-slate-950/90 border-blue-950/50 text-blue-200 hover:text-rose-400' : 'bg-white/70 hover:bg-white border-rose-100 text-gray-700 hover:text-rose-600'}`}
+            className={`flex items-center justify-between px-4 py-3 rounded-xl border transition-all text-xs font-medium cursor-pointer shadow-xs group ${shareBtnColor}`}
           >
             <div className="flex items-center gap-2">
               <Link2 className="w-4 h-4 text-rose-400 group-hover:text-rose-500" />
@@ -261,7 +307,7 @@ export default function SuccessSection({
           {/* Text Message Copy Button */}
           <button
             onClick={handleCopyMessage}
-            className={`flex items-center justify-between px-4 py-3 rounded-xl border transition-all text-xs font-medium cursor-pointer shadow-xs group ${isDark ? 'bg-slate-950/70 hover:bg-slate-950/90 border-blue-950/50 text-blue-200 hover:text-pink-400' : 'bg-white/70 hover:bg-white border-rose-100 text-gray-700 hover:text-rose-600'}`}
+            className={`flex items-center justify-between px-4 py-3 rounded-xl border transition-all text-xs font-medium cursor-pointer shadow-xs group ${shareBtnColor}`}
           >
             <div className="flex items-center gap-2">
               <Copy className="w-4 h-4 text-pink-400 group-hover:text-pink-500" />
@@ -277,16 +323,16 @@ export default function SuccessSection({
       {/* Auto-Generated 'Thank You' & Announcement Email Template Generator */}
       <motion.div 
         variants={itemVariants} 
-        className={`w-full max-w-xl backdrop-blur-md rounded-2xl border p-6 shadow-xl mb-16 ${isDark ? 'bg-slate-900/40 border-blue-900/40' : 'bg-white/30 border-white/45'}`}
+        className={`w-full max-w-xl backdrop-blur-md rounded-2xl border p-6 shadow-xl mb-16 ${cardClass}`}
       >
-        <div className={`flex items-center justify-center gap-2 border-b pb-3 mb-4 ${isDark ? 'border-blue-900/40' : 'border-white/40'}`}>
+        <div className={`flex items-center justify-center gap-2 border-b pb-3 mb-4 ${cardBorderColor}`}>
           <Mail className="w-5 h-5 text-rose-500" />
-          <h3 className={`font-display font-semibold text-sm tracking-wide ${isDark ? 'text-white' : 'text-gray-800'}`}>
+          <h3 className={`font-display font-semibold text-sm tracking-wide ${labelColor}`}>
             Sweet Keepsake & Announcement Emails
           </h3>
         </div>
 
-        <p className={`text-xs text-center leading-relaxed mb-5 px-2 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+        <p className={`text-xs text-center leading-relaxed mb-5 px-2 ${paragraphColor}`}>
           Copy a pre-written, highly-personalized letter to send to your special partner or announce the gorgeous milestone to friends & family!
         </p>
 
@@ -304,7 +350,7 @@ export default function SuccessSection({
               className={`py-2 px-1.5 rounded-lg text-[10px] sm:text-xs font-semibold tracking-wide transition-all cursor-pointer ${
                 selectedEmailTemplate === tab.id
                   ? 'bg-white text-rose-600 shadow-sm'
-                  : isDark ? 'text-gray-300 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-gray-900 hover:bg-white/30'
+                  : isDark ? 'text-gray-300 hover:text-white hover:bg-white/5' : theme === 'gold' ? 'text-amber-800 hover:text-amber-950 hover:bg-amber-100/50' : 'text-gray-600 hover:text-gray-900 hover:bg-white/30'
               }`}
             >
               {tab.label}
@@ -314,9 +360,11 @@ export default function SuccessSection({
 
         {/* Preview Stationery Paper */}
         <div className={`relative rounded-xl border p-4 sm:p-5 font-sans shadow-inner overflow-hidden mb-5 ${
-          isDark 
+          theme === 'midnight' 
             ? 'bg-slate-950/80 border-slate-800 text-slate-100' 
-            : 'bg-amber-50/20 border-rose-100/60 text-gray-800'
+            : theme === 'gold'
+              ? 'bg-amber-50/45 border-amber-200/50 text-amber-950'
+              : 'bg-amber-50/20 border-rose-100/60 text-gray-800'
         }`}>
           {/* Subtle line background pattern representing stationery */}
           <div className="absolute top-0 right-0 p-3 select-none text-[9px] font-mono tracking-widest text-rose-500/30 uppercase">
@@ -333,7 +381,7 @@ export default function SuccessSection({
               </span>
             </div>
             
-            <div className={`h-px w-full ${isDark ? 'bg-slate-800' : 'bg-rose-100/40'}`} />
+            <div className={`h-px w-full ${lineBreakColor}`} />
             
             <div className="whitespace-pre-line leading-relaxed font-serif italic text-sm text-opacity-95">
               {selectedEmailTemplate === 'partner' && 
@@ -414,7 +462,7 @@ ${authorName} and ${targetName}`}
 
       {/* Love Story Timeline */}
       <motion.div variants={itemVariants} className="w-full">
-        <LoveStoryTimeline />
+        <LoveStoryTimeline theme={theme} />
       </motion.div>
 
       {/* Cinematic Outro / Footer Section */}

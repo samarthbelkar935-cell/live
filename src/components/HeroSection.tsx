@@ -26,6 +26,121 @@ export default function HeroSection({
   onBackToSetup,
 }: HeroSectionProps) {
   const isDark = theme === 'midnight';
+  
+  // Envelope and layout dynamic styling variables
+  let envelopeBg = "bg-rose-50";
+  let envelopeShadow = "shadow-[0_30px_70px_rgba(244,63,94,0.25)]";
+  let envelopeBorder = "border-rose-100/60";
+  let backplateBg = "bg-rose-100/40";
+  let letterBorder = "border-rose-50/40";
+  let letterText = "text-rose-600";
+  let labelText = "text-rose-800";
+  let hintLabelBg = "bg-white/70 text-rose-600/70";
+
+  let leftFlapColor = "border-l-rose-200/70";
+  let rightFlapColor = "border-r-rose-200/70";
+  let bottomFlapColor = "border-b-rose-200";
+  let topFlapColor = "border-t-rose-300/80";
+
+  let cardClass = "bg-white/35 border-white/50 shadow-[0_20px_50px_rgba(244,63,94,0.1)] text-gray-800";
+  let bannerOverlay = "from-transparent via-white/40 to-white/95";
+  let headingColor = "text-gray-800";
+  let subtitleColor = "text-gray-600";
+  let typewriterColor = "text-rose-600";
+  
+  let countdownBg = "bg-white/40 border-white/50";
+  let labelColor = "text-pink-600";
+  let descColor = "text-gray-600";
+  let gridItemBg = "bg-white/60 border-rose-100";
+  let gridItemNumColor = "text-rose-500 group-hover:text-rose-600";
+  let gridItemLabelColor = "text-gray-400";
+  let detailLabelColor = "text-purple-700/60";
+  let bypassBtnColor = "text-rose-500 hover:text-rose-600";
+  let editBtnColor = "text-gray-500 hover:text-rose-500";
+  let noBtnColor = "bg-white/50 hover:bg-white/80 text-gray-500 border-white/40";
+  let noLeftBtnColor = "text-rose-500 bg-white/45 border-white/50";
+  let textAttemptColor = "text-purple-700/50";
+  let textRetreatColor = "text-rose-600 bg-rose-50 border-rose-100";
+  let yesBtnClass = "bg-rose-500 hover:bg-rose-600 text-white shadow-[0_10px_30px_rgba(244,63,94,0.4)]";
+  let pulseColor = "rgba(244, 63, 94, 0.4)";
+  let pulseColorEnd = "rgba(244, 63, 94, 0)";
+
+  if (theme === 'midnight') {
+    envelopeBg = "bg-slate-900";
+    envelopeShadow = "shadow-[0_30px_70px_rgba(30,58,138,0.4)]";
+    envelopeBorder = "border-blue-900/45";
+    backplateBg = "bg-blue-950/40";
+    letterBorder = "border-blue-900/40";
+    letterText = "text-blue-400 font-semibold";
+    labelText = "text-blue-200";
+    hintLabelBg = "bg-slate-950/80 text-blue-300/80";
+
+    leftFlapColor = "border-l-blue-900/75";
+    rightFlapColor = "border-r-blue-900/75";
+    bottomFlapColor = "border-b-blue-950";
+    topFlapColor = "border-t-blue-800/85";
+
+    cardClass = "bg-slate-900/40 border-blue-900/40 shadow-[0_20px_50px_rgba(0,0,0,0.35)] text-white";
+    bannerOverlay = "from-transparent via-slate-900/70 to-slate-900";
+    headingColor = "text-white";
+    subtitleColor = "text-blue-200/90";
+    typewriterColor = "text-rose-200";
+
+    countdownBg = "bg-slate-900/60 border-blue-900/40";
+    labelColor = "text-pink-400";
+    descColor = "text-gray-300";
+    gridItemBg = "bg-slate-950/65 border-blue-950/50";
+    gridItemNumColor = "text-rose-400 group-hover:text-rose-300";
+    gridItemLabelColor = "text-blue-300/60";
+    detailLabelColor = "text-blue-300/50";
+    bypassBtnColor = "text-rose-400 hover:text-rose-300";
+    editBtnColor = "text-blue-300 hover:text-rose-400";
+    noBtnColor = "bg-slate-950/45 hover:bg-slate-900/60 text-blue-300 border-blue-900/40";
+    noLeftBtnColor = "text-rose-400 bg-slate-950/50 border-blue-950/30";
+    textAttemptColor = "text-blue-300/50";
+    textRetreatColor = "text-rose-400 bg-slate-950/60 border-rose-950/30";
+    yesBtnClass = "bg-rose-500 hover:bg-rose-600 text-white shadow-[0_10px_30px_rgba(244,63,94,0.45)]";
+    pulseColor = "rgba(244, 63, 94, 0.45)";
+    pulseColorEnd = "rgba(244, 63, 94, 0)";
+  } else if (theme === 'gold') {
+    envelopeBg = "bg-amber-50";
+    envelopeShadow = "shadow-[0_30px_70px_rgba(180,135,50,0.25)]";
+    envelopeBorder = "border-amber-200/60";
+    backplateBg = "bg-amber-100/30";
+    letterBorder = "border-amber-150/40";
+    letterText = "text-amber-700 font-semibold";
+    labelText = "text-amber-850";
+    hintLabelBg = "bg-white/95 text-amber-600/80";
+
+    leftFlapColor = "border-l-amber-200/70";
+    rightFlapColor = "border-r-amber-200/70";
+    bottomFlapColor = "border-b-amber-200";
+    topFlapColor = "border-t-amber-300/80";
+
+    cardClass = "bg-amber-50/65 border-amber-200/50 shadow-[0_20px_50px_rgba(180,135,50,0.15)] text-amber-950";
+    bannerOverlay = "from-transparent via-amber-50/50 to-amber-50";
+    headingColor = "text-amber-900";
+    subtitleColor = "text-amber-800/80";
+    typewriterColor = "text-amber-700";
+
+    countdownBg = "bg-amber-100/45 border-amber-200/45";
+    labelColor = "text-amber-600 font-bold";
+    descColor = "text-amber-800";
+    gridItemBg = "bg-white/70 border-amber-100";
+    gridItemNumColor = "text-amber-600 group-hover:text-amber-700";
+    gridItemLabelColor = "text-amber-700/60";
+    detailLabelColor = "text-amber-700/60";
+    bypassBtnColor = "text-amber-600 hover:text-amber-700";
+    editBtnColor = "text-amber-700 hover:text-amber-600";
+    noBtnColor = "bg-amber-50/50 hover:bg-amber-100/70 text-amber-800 border-amber-200/50";
+    noLeftBtnColor = "text-amber-600 bg-amber-50/50 border-amber-100";
+    textAttemptColor = "text-amber-700/50";
+    textRetreatColor = "text-amber-700 bg-amber-50 border-amber-200";
+    yesBtnClass = "bg-amber-500 hover:bg-amber-600 text-stone-950 shadow-[0_10px_30px_rgba(217,119,6,0.4)]";
+    pulseColor = "rgba(217, 119, 6, 0.45)";
+    pulseColorEnd = "rgba(217, 119, 6, 0)";
+  }
+
   const [noCount, setNoCount] = useState(0);
   const [noPosition, setNoPosition] = useState<{ x: number; y: number } | null>(null);
   const [timeLeft, setTimeLeft] = useState<{
@@ -160,38 +275,38 @@ export default function HeroSection({
           exit={{ opacity: 0, scale: 0.9, y: -20 }}
           transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
           onClick={handleOpen}
-          className="relative w-[280px] h-[182px] xs:w-80 xs:h-52 sm:w-[420px] sm:h-[280px] bg-rose-50 rounded-2xl shadow-[0_30px_70px_rgba(244,63,94,0.25)] border border-rose-100/60 cursor-pointer group flex flex-col items-center justify-center overflow-visible select-none"
+          className={`relative w-[280px] h-[182px] xs:w-80 xs:h-52 sm:w-[420px] sm:h-[280px] ${envelopeBg} rounded-2xl ${envelopeShadow} border ${envelopeBorder} cursor-pointer group flex flex-col items-center justify-center overflow-visible select-none`}
         >
           {/* Backplate / shadow depth inside */}
-          <div className="absolute inset-0 bg-rose-100/40 rounded-2xl" />
+          <div className={`absolute inset-0 ${backplateBg} rounded-2xl`} />
 
           {/* Envelope Paper/Letter inside (peeking & sliding out) */}
           <motion.div
             initial={{ y: 0, opacity: 0 }}
             animate={isFlapOpened ? { y: -80, opacity: 1 } : { y: 0, opacity: 0.5 }}
             transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-            className="absolute top-4 w-[90%] h-[80%] bg-white rounded-xl shadow-md p-3 xs:p-4 flex flex-col items-center justify-center border border-rose-50/40 z-10"
+            className={`absolute top-4 w-[90%] h-[80%] bg-white rounded-xl shadow-md p-3 xs:p-4 flex flex-col items-center justify-center border ${letterBorder} z-10`}
           >
-            <p className="font-serif italic text-xs xs:text-sm text-rose-600 font-medium">Dear {targetName || 'Beloved'},</p>
+            <p className={`font-serif italic text-xs xs:text-sm ${letterText} font-medium`}>Dear {targetName || 'Beloved'},</p>
             <p className="text-[9px] xs:text-[10px] font-mono uppercase tracking-widest text-gray-400 mt-2">A special secret awaits...</p>
           </motion.div>
 
           {/* Envelope Flaps (Bottom, Left, Right) */}
           {/* Left Flap */}
           <div 
-            className="absolute left-0 inset-y-0 w-0 border-l-[140px] xs:border-l-[160px] sm:border-l-[210px] border-l-rose-200/70 border-y-[91px] xs:border-y-[104px] sm:border-y-[140px] border-y-transparent z-20 rounded-l-2xl" 
+            className={`absolute left-0 inset-y-0 w-0 border-l-[140px] xs:border-l-[160px] sm:border-l-[210px] ${leftFlapColor} border-y-[91px] xs:border-y-[104px] sm:border-y-[140px] border-y-transparent z-20 rounded-l-2xl`} 
             style={{ pointerEvents: 'none' }}
           />
           
           {/* Right Flap */}
           <div 
-            className="absolute right-0 inset-y-0 w-0 border-r-[140px] xs:border-r-[160px] sm:border-r-[210px] border-r-rose-200/70 border-y-[91px] xs:border-y-[104px] sm:border-y-[140px] border-y-transparent z-20 rounded-r-2xl" 
+            className={`absolute right-0 inset-y-0 w-0 border-r-[140px] xs:border-r-[160px] sm:border-r-[210px] ${rightFlapColor} border-y-[91px] xs:border-y-[104px] sm:border-y-[140px] border-y-transparent z-20 rounded-r-2xl`} 
             style={{ pointerEvents: 'none' }}
           />
           
           {/* Bottom Flap */}
           <div 
-            className="absolute bottom-0 inset-x-0 h-0 border-b-[96px] xs:border-b-[110px] sm:border-b-[148px] border-b-rose-200 border-x-[140px] xs:border-x-[160px] sm:border-x-[210px] border-x-transparent z-20 rounded-b-2xl" 
+            className={`absolute bottom-0 inset-x-0 h-0 border-b-[96px] xs:border-b-[110px] sm:border-b-[148px] ${bottomFlapColor} border-x-[140px] xs:border-x-[160px] sm:border-x-[210px] border-x-transparent z-20 rounded-b-2xl`} 
             style={{ pointerEvents: 'none' }}
           />
 
@@ -200,7 +315,7 @@ export default function HeroSection({
             initial={{ rotateX: 0 }}
             animate={isFlapOpened ? { rotateX: 180, zIndex: 0 } : { rotateX: 0, zIndex: 30 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute top-0 inset-x-0 h-0 border-t-[88px] xs:border-t-[100px] sm:border-t-[136px] border-t-rose-300/80 border-x-[140px] xs:border-x-[160px] sm:border-x-[210px] border-x-transparent origin-top z-30 rounded-t-2xl"
+            className={`absolute top-0 inset-x-0 h-0 border-t-[88px] xs:border-t-[100px] sm:border-t-[136px] ${topFlapColor} border-x-[140px] xs:border-x-[160px] sm:border-x-[210px] border-x-transparent origin-top z-30 rounded-t-2xl`}
             style={{ pointerEvents: 'none', transformStyle: 'preserve-3d' }}
           />
 
@@ -216,10 +331,10 @@ export default function HeroSection({
           {/* "For You" Name Label */}
           {!isFlapOpened && (
             <div className="absolute bottom-3 xs:bottom-4 left-1/2 -translate-x-1/2 z-40 text-center pointer-events-none w-full px-4">
-              <p className="font-serif text-xs xs:text-sm sm:text-base italic text-rose-800 font-semibold tracking-wide truncate max-w-[200px] xs:max-w-[240px] mx-auto">
+              <p className={`font-serif text-xs xs:text-sm sm:text-base italic ${labelText} font-semibold tracking-wide truncate max-w-[200px] xs:max-w-[240px] mx-auto`}>
                 {targetName ? `For My Beloved ${targetName}` : 'For You'}
               </p>
-              <p className="text-[8px] xs:text-[9px] uppercase tracking-widest text-rose-600/70 mt-1 font-sans font-bold bg-white/70 px-2 py-0.5 rounded-full shadow-2xs inline-block">
+              <p className={`text-[8px] xs:text-[9px] uppercase tracking-widest mt-1 font-sans font-bold px-2 py-0.5 rounded-full shadow-2xs inline-block ${hintLabelBg}`}>
                 Click to open
               </p>
             </div>
@@ -239,7 +354,7 @@ export default function HeroSection({
   }
 
   return (
-    <div className={`relative z-10 w-[calc(100%-1.5rem)] xs:w-[calc(100%-2rem)] max-w-2xl backdrop-blur-2xl border rounded-[32px] xs:rounded-[40px] p-5 xs:p-8 sm:p-12 flex flex-col items-center transform transition-all my-6 mx-auto overflow-hidden ${isDark ? 'bg-slate-900/40 border-blue-900/40 shadow-[0_20px_50px_rgba(0,0,0,0.35)] text-white' : 'bg-white/30 border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.1)] text-gray-800'}`}>
+    <div className={`relative z-10 w-[calc(100%-1.5rem)] xs:w-[calc(100%-2rem)] max-w-2xl backdrop-blur-2xl border rounded-[32px] xs:rounded-[40px] p-5 xs:p-8 sm:p-12 flex flex-col items-center transform transition-all my-6 mx-auto overflow-hidden ${cardClass}`}>
       
       {/* Background Banner Image */}
       {bannerImage && (
@@ -250,7 +365,7 @@ export default function HeroSection({
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover"
           />
-          <div className={`absolute inset-0 bg-gradient-to-b ${isDark ? 'from-transparent via-slate-900/70 to-slate-900' : 'from-transparent via-white/40 to-white/95'}`} />
+          <div className={`absolute inset-0 bg-gradient-to-b ${bannerOverlay}`} />
         </div>
       )}
 
@@ -296,7 +411,7 @@ export default function HeroSection({
           variants={titleContainerVariants}
           initial="hidden"
           animate="visible"
-          className={`text-3xl xs:text-4xl sm:text-5xl font-serif leading-tight tracking-tight break-words ${isDark ? 'text-white' : 'text-gray-800'}`}
+          className={`text-3xl xs:text-4xl sm:text-5xl font-serif leading-tight tracking-tight break-words ${headingColor}`}
         >
           {titleLetters.map((char, index) => (
             <motion.span
@@ -311,7 +426,7 @@ export default function HeroSection({
         </motion.h1>
 
         {/* Cinematic Subtitles - matching Immersive UI Spec */}
-        <p className={`text-sm sm:text-base font-light italic tracking-wide max-w-md mx-auto ${isDark ? 'text-blue-200/90' : 'text-gray-600'}`}>
+        <p className={`text-sm sm:text-base font-light italic tracking-wide max-w-md mx-auto ${subtitleColor}`}>
           "In a world full of temporary things, you are my forever."
         </p>
 
@@ -319,7 +434,7 @@ export default function HeroSection({
         <div className="min-h-[2.5rem] mt-1.5 max-w-md mx-auto flex items-center justify-center">
           <Typewriter
             text={proposalMessage}
-            className={`text-lg xs:text-xl sm:text-2xl font-medium tracking-wide font-serif text-center ${isDark ? 'text-rose-200' : 'text-gray-750'}`}
+            className={`text-lg xs:text-xl sm:text-2xl font-medium tracking-wide font-serif text-center ${typewriterColor}`}
             speed={75}
             delay={800}
           />
@@ -332,13 +447,13 @@ export default function HeroSection({
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className={`w-full flex flex-col items-center justify-center space-y-6 p-6 backdrop-blur-md rounded-3xl border shadow-sm ${isDark ? 'bg-slate-900/60 border-blue-900/40' : 'bg-white/40 border-white/50'}`}
+            className={`w-full flex flex-col items-center justify-center space-y-6 p-6 backdrop-blur-md rounded-3xl border shadow-sm ${countdownBg}`}
           >
             <div className="text-center space-y-1">
-              <span className={`text-xs font-mono uppercase tracking-[0.2em] font-semibold ${isDark ? 'text-pink-400' : 'text-pink-600'}`}>
+              <span className={`text-xs font-mono uppercase tracking-[0.2em] font-semibold ${labelColor}`}>
                 ⏳ Beautiful Anticipation
               </span>
-              <p className={`text-sm font-medium font-serif mt-1 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+              <p className={`text-sm font-medium font-serif mt-1 ${descColor}`}>
                 Our romantic journey scheduled to reveal in:
               </p>
             </div>
@@ -353,29 +468,29 @@ export default function HeroSection({
               ].map((unit, i) => (
                 <div 
                   key={i} 
-                  className={`flex flex-col items-center justify-center backdrop-blur-xs rounded-2xl p-2.5 sm:p-4 border shadow-xs relative overflow-hidden group hover:scale-[1.03] transition-all ${isDark ? 'bg-slate-950/65 border-blue-950/50' : 'bg-white/60 border-rose-100'}`}
+                  className={`flex flex-col items-center justify-center backdrop-blur-xs rounded-2xl p-2.5 sm:p-4 border shadow-xs relative overflow-hidden group hover:scale-[1.03] transition-all ${gridItemBg}`}
                 >
-                  <span className={`text-2xl sm:text-3xl font-bold font-mono tracking-tight transition-colors ${isDark ? 'text-rose-400 group-hover:text-rose-300' : 'text-rose-500 group-hover:text-rose-600'}`}>
+                  <span className={`text-2xl sm:text-3xl font-bold font-mono tracking-tight transition-colors ${gridItemNumColor}`}>
                     {String(unit.value).padStart(2, '0')}
                   </span>
-                  <span className={`text-[10px] font-mono uppercase tracking-widest mt-1 ${isDark ? 'text-blue-300/60' : 'text-gray-400'}`}>
+                  <span className={`text-[10px] font-mono uppercase tracking-widest mt-1 ${gridItemLabelColor}`}>
                     {unit.label}
                   </span>
                   {/* Glowing decorative effect */}
-                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-200 rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-500"></span>
+                  <span className={`absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-500 ${theme === 'gold' ? 'bg-amber-350' : 'bg-rose-200'}`}></span>
                 </div>
               ))}
             </div>
 
             <div className="text-center space-y-2 pt-1">
-              <p className={`text-[11px] font-mono uppercase tracking-widest ${isDark ? 'text-blue-300/50' : 'text-purple-700/60'}`}>
+              <p className={`text-[11px] font-mono uppercase tracking-widest ${detailLabelColor}`}>
                 Scheduled for: {new Date(proposalDate!).toLocaleString()}
               </p>
               
               {/* Optional test preview bypass to check buttons/animations */}
               <button
                 onClick={onYes}
-                className={`text-[11px] font-sans hover:underline transition-all cursor-pointer font-semibold flex items-center justify-center gap-1.5 mx-auto ${isDark ? 'text-rose-400 hover:text-rose-300' : 'text-rose-500 hover:text-rose-600'}`}
+                className={`text-[11px] font-sans hover:underline transition-all cursor-pointer font-semibold flex items-center justify-center gap-1.5 mx-auto ${bypassBtnColor}`}
               >
                 <span>✨ Preview Proposal Instantly</span>
               </button>
@@ -390,26 +505,29 @@ export default function HeroSection({
               style={{ scale: yesScale }}
               animate={{
                 boxShadow: [
-                  "0 0 0 0 rgba(244, 63, 94, 0.4)",
-                  "0 0 0 16px rgba(244, 63, 94, 0)",
+                  `0 0 0 0 ${pulseColor}`,
+                  `0 0 0 16px ${pulseColorEnd}`,
                 ]
               }}
               transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 17,
                 boxShadow: {
                   duration: 1.5,
                   repeat: Infinity,
                   ease: "easeOut"
                 }
               }}
-              whileHover={{ scale: yesScale * 1.08 }}
-              whileTap={{ scale: yesScale * 0.95 }}
-              className="bg-rose-500 hover:bg-rose-600 text-white font-display font-medium text-xl py-4.5 px-12 rounded-full shadow-[0_10px_30px_rgba(244,63,94,0.4)] transition-all z-20 flex items-center justify-center gap-2.5 cursor-pointer whitespace-nowrap"
+              whileHover={{ scale: yesScale * 1.06, y: -2 }}
+              whileTap={{ scale: yesScale * 0.96 }}
+              className={`${yesBtnClass} font-display font-medium text-xl py-4.5 px-12 rounded-full transition-colors duration-200 z-20 flex items-center justify-center gap-2.5 cursor-pointer whitespace-nowrap`}
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 0 24 24" 
                 fill="currentColor" 
-                className="w-6 h-6 text-white animate-pulse"
+                className="w-6 h-6 animate-pulse"
               >
                 <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
               </svg>
@@ -434,8 +552,10 @@ export default function HeroSection({
                         }
                       : { scale: noScale }
                   }
-                  whileHover={{ scale: noScale * 0.95 }}
-                  className={`backdrop-blur-md rounded-full font-display font-medium text-xs py-2.5 px-6 shadow-xs transition-all cursor-pointer whitespace-nowrap border ${isDark ? 'bg-slate-950/45 hover:bg-slate-900/60 text-blue-300 border-blue-900/40' : 'bg-white/50 hover:bg-white/80 text-gray-500 border-white/40'}`}
+                  whileHover={{ scale: noScale * 1.05 }}
+                  whileTap={{ scale: noScale * 0.95 }}
+                  transition={{ type: "spring", stiffness: 450, damping: 15 }}
+                  className={`backdrop-blur-md rounded-full font-display font-medium text-xs py-2.5 px-6 shadow-xs transition-colors duration-200 cursor-pointer whitespace-nowrap border ${noBtnColor}`}
                 >
                   No... 😢
                 </motion.button>
@@ -443,7 +563,7 @@ export default function HeroSection({
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 0.5, scale: 0.8 }}
-                  className={`text-xs font-semibold backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 cursor-not-allowed select-none italic border ${isDark ? 'text-rose-400 bg-slate-950/50 border-blue-950/30' : 'text-rose-500 bg-white/45 border-white/50'}`}
+                  className={`text-xs font-semibold backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 cursor-not-allowed select-none italic border ${noLeftBtnColor}`}
                 >
                   <span>No options left 🔒</span>
                 </motion.div>
@@ -458,7 +578,7 @@ export default function HeroSection({
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`text-center text-[11px] font-mono mt-4 ${isDark ? 'text-blue-300/50' : 'text-purple-700/50'}`}
+          className={`text-center text-[11px] font-mono mt-4 ${textAttemptColor}`}
         >
           {noCount} empty attempts. The universe wants a "Yes"! 🪐
         </motion.p>
@@ -468,7 +588,7 @@ export default function HeroSection({
         <motion.p
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className={`text-center text-xs font-semibold py-2 px-4 rounded-xl mt-4 animate-bounce border ${isDark ? 'text-rose-400 bg-slate-950/60 border-rose-950/30' : 'text-rose-600 bg-rose-50 border-rose-100'}`}
+          className={`text-center text-xs font-semibold py-2 px-4 rounded-xl mt-4 animate-bounce border ${textRetreatColor}`}
         >
           The 'No' button is retreating... Please say Yes! 🌸
         </motion.p>
@@ -477,7 +597,7 @@ export default function HeroSection({
       {onBackToSetup && (
         <button
           onClick={onBackToSetup}
-          className={`mt-6 text-[10px] font-mono tracking-widest transition-colors uppercase cursor-pointer ${isDark ? 'text-blue-300 hover:text-rose-400' : 'text-gray-400 hover:text-rose-500'}`}
+          className={`mt-6 text-[10px] font-mono tracking-widest transition-colors uppercase cursor-pointer ${editBtnColor}`}
         >
           ← Edit Configuration
         </button>
